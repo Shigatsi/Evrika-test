@@ -14,9 +14,12 @@ export default function App() {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [modalType, setModalType] = React.useState("");
 
+  const [editUser, setEditUser] = React.useState({});
+
   const closeModal = () => {
     setIsModalOpen(false);
     setModalType("");
+    setEditUser({});
   };
 
   const handleAddUserClick = () => {
@@ -24,8 +27,22 @@ export default function App() {
     setModalType("addUser");
   };
 
+  const handleDeleteUserClick = (user) => {
+    setIsModalOpen(true);
+    setModalType("deleteUser");
+    setEditUser(user);
+  };
+
   const handleAddUserSubmit = (data) => {
     setUsers([data, ...users]);
+    closeModal();
+  };
+
+  const handleDeleteUserSubmit = (user) => {
+    const newUsers = users.filter((u) => {
+      return u !== user;
+    });
+    setUsers(newUsers);
     closeModal();
   };
 
@@ -33,12 +50,18 @@ export default function App() {
     <div className="page">
       <Header />
       <Nav />
-      <Table onAddUser={handleAddUserClick} users={users} />
+      <Table
+        onAddUser={handleAddUserClick}
+        users={users}
+        onDeleteUser={handleDeleteUserClick}
+      />
       <Modal
         isOpen={isModalOpen}
         onClose={closeModal}
         type={modalType}
         onAddUser={handleAddUserSubmit}
+        onDeleteUser={handleDeleteUserSubmit}
+        editUser={editUser}
       />
     </div>
   );

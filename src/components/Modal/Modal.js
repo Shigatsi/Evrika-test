@@ -4,7 +4,7 @@ import ModalHeader from "../ModalHeader/ModalHeader";
 import ModalBody from "../ModalBody/ModalBody";
 import ModalFooter from "../ModalFooter/ModalFooter";
 
-function Modal({ isOpen, onClose, type, onAddUser }) {
+function Modal({ isOpen, onClose, type, onAddUser, onDeleteUser, editUser }) {
   const [data, setUserData] = React.useState({
     surname: "",
     name: "",
@@ -24,10 +24,9 @@ function Modal({ isOpen, onClose, type, onAddUser }) {
     setUserData({ ...data, [name]: value });
   };
 
-  function handleSubmit(e) {
+  function handleAddUserSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
-    // Передаём значения управляемых компонентов во внешний обработчик
     onAddUser({
       surname: data.surname,
       name: data.name,
@@ -44,22 +43,24 @@ function Modal({ isOpen, onClose, type, onAddUser }) {
     });
   }
 
+  function handleDeleteUserSubmit(e) {
+    // Запрещаем браузеру переходить по адресу формы
+    e.preventDefault();
+    onDeleteUser(editUser);
+  }
+
   return (
     <section className={`modal ${isOpen ? "" : "modal_type_hidden"}`}>
-      <form className="form" onSubmit={handleSubmit}>
-        <ModalHeader
-          subtitle={`${
-            type === "addUser"
-              ? "Создание пользователя"
-              : "Редактирование пользователя"
-          }`}
-          onClose={onClose}
-        />
+      <form className="form">
+        <ModalHeader type={type} onClose={onClose} />
 
         <ModalBody type={type} data={data} handleChange={handleChange} />
         <ModalFooter
           userData={data}
-          btnCaption={`${type === "addUser" ? "Создать" : "Сохранить"}`}
+          type={type}
+          addUserSubmit={handleAddUserSubmit}
+          deleteUserSubmit={handleDeleteUserSubmit}
+          onClose={onClose}
         />
       </form>
     </section>
