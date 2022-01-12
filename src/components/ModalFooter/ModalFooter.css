@@ -1,0 +1,33 @@
+.modal-footer {
+  background-color: #f6f7f9;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  padding: 12px 24px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.modal-footer__submit-btn {
+  background-color: #4587ed;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
+  padding: 8px 48px;
+}
+
+.modal-footer__submit-btn_type_disabled {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+}
+
+.modal-footer__submit-btn:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: 0.2 ease-in-out;
+}
