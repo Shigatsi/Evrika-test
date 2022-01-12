@@ -18,8 +18,6 @@ export default function App() {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    // setModalType("");
-    // //setEditUser({});
   };
 
   const handleAddUserClick = () => {
