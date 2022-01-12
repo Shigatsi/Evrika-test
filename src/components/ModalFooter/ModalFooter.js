@@ -5,10 +5,12 @@ function ModalFooter({
   userData,
   addUserSubmit,
   deleteUserSubmit,
+  editUserSubmit,
   type,
   onClose,
 }) {
   const [submitBtnCaption, setSubmitBtnCaption] = React.useState("");
+
   React.useEffect(() => {
     if (type === "addUser") {
       setSubmitBtnCaption("Создать");
@@ -19,6 +21,13 @@ function ModalFooter({
     }
   }, [type]);
 
+  const onSubmitClick = (type, e) => {
+    if (type === "addUser") {
+      addUserSubmit(e);
+    } else if (type === "editUser") {
+      editUserSubmit(e);
+    }
+  };
   return (
     <div className="modal-footer">
       {type === "deleteUser" ? (
@@ -32,12 +41,13 @@ function ModalFooter({
             onClick={deleteUserSubmit}
           >
             {submitBtnCaption}
+            {/* {`${type === "deleteUser" && "Remove"}`} */}
           </button>
         </>
       ) : (
         <button
           type="submit"
-          onClick={addUserSubmit}
+          onClick={(e) => onSubmitClick(type, e)}
           className={`modal-footer__btn modal-footer__btn_type_submit ${
             userData.surname &&
             userData.name &&

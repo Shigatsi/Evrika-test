@@ -18,8 +18,8 @@ export default function App() {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setModalType("");
-    setEditUser({});
+    // setModalType("");
+    // //setEditUser({});
   };
 
   const handleAddUserClick = () => {
@@ -30,6 +30,12 @@ export default function App() {
   const handleDeleteUserClick = (user) => {
     setIsModalOpen(true);
     setModalType("deleteUser");
+    setEditUser(user);
+  };
+
+  const handleEditUSerClick = (user) => {
+    setIsModalOpen(true);
+    setModalType("editUser");
     setEditUser(user);
   };
 
@@ -46,6 +52,13 @@ export default function App() {
     closeModal();
   };
 
+  const handleEditUserSubmit = (userInfo) => {
+    const newUsers = users.map((u) => (u === editUser ? userInfo : u));
+    console.log("NEWUSERS FROM APP", newUsers);
+    setUsers(newUsers);
+    closeModal();
+  };
+
   return (
     <div className="page">
       <Header />
@@ -54,6 +67,7 @@ export default function App() {
         onAddUser={handleAddUserClick}
         users={users}
         onDeleteUser={handleDeleteUserClick}
+        onEditUser={handleEditUSerClick}
       />
       <Modal
         isOpen={isModalOpen}
@@ -61,6 +75,7 @@ export default function App() {
         type={modalType}
         onAddUser={handleAddUserSubmit}
         onDeleteUser={handleDeleteUserSubmit}
+        onEditUser={handleEditUserSubmit}
         editUser={editUser}
       />
     </div>

@@ -6,15 +6,7 @@ import { usersTableHeaders } from "../../utils/mockup"; // initialUsers,
 import RemoveBtn from "../../images/btn_remove.png";
 import EditBtn from "../../images/btn_edit.png";
 
-export default function Table({ onAddUser, onDeleteUser, users }) {
-  // function handleRBinBtnClick(user) {
-  //   onDeleteUser(user);
-  // }
-
-  // function handleEditBtnClick(user) {
-  //   onEditUser(user);
-  // }
-
+export default function Table({ onAddUser, onDeleteUser, users, onEditUser }) {
   return (
     <div className="table-container">
       <PageHeader onClick={onAddUser} />
@@ -46,7 +38,10 @@ export default function Table({ onAddUser, onDeleteUser, users }) {
                 {user.login}
               </td>
               <td className="table__cell table__cell_type_btn">
-                <button className="table__btn table__btn_type_edit">
+                <button
+                  className="table__btn table__btn_type_edit"
+                  onClick={(_) => onEditUser(user)}
+                >
                   <img src={EditBtn} alt="edit" />
                 </button>
                 <button

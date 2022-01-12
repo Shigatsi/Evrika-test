@@ -4,7 +4,15 @@ import ModalHeader from "../ModalHeader/ModalHeader";
 import ModalBody from "../ModalBody/ModalBody";
 import ModalFooter from "../ModalFooter/ModalFooter";
 
-function Modal({ isOpen, onClose, type, onAddUser, onDeleteUser, editUser }) {
+function Modal({
+  isOpen,
+  onClose,
+  type,
+  onAddUser,
+  onDeleteUser,
+  onEditUser,
+  editUser,
+}) {
   const [data, setUserData] = React.useState({
     surname: "",
     name: "",
@@ -16,6 +24,10 @@ function Modal({ isOpen, onClose, type, onAddUser, onDeleteUser, editUser }) {
   React.useEffect(() => {
     setUserData(data);
   }, [data]);
+
+  React.useEffect(() => {
+    setUserData(editUser);
+  }, [editUser]);
 
   const handleChange = (evt) => {
     const target = evt.target;
@@ -49,6 +61,19 @@ function Modal({ isOpen, onClose, type, onAddUser, onDeleteUser, editUser }) {
     onDeleteUser(editUser);
   }
 
+  function handleEditUserSubmit(e) {
+    // Запрещаем браузеру переходить по адресу формы
+    e.preventDefault();
+    console.log("handleEditUserSubmit, editUser: ", editUser);
+    onEditUser({
+      surname: data.surname,
+      name: data.name,
+      patronymic: data.patronymic,
+      email: data.email,
+      login: data.login,
+    });
+  }
+
   return (
     <section className={`modal ${isOpen ? "" : "modal_type_hidden"}`}>
       <form className="form">
@@ -60,6 +85,7 @@ function Modal({ isOpen, onClose, type, onAddUser, onDeleteUser, editUser }) {
           type={type}
           addUserSubmit={handleAddUserSubmit}
           deleteUserSubmit={handleDeleteUserSubmit}
+          editUserSubmit={handleEditUserSubmit}
           onClose={onClose}
         />
       </form>
