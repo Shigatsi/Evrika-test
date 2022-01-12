@@ -6,7 +6,9 @@ function ModalBody({ type, data, handleChange }) {
   return (
     <>
       {type === "deleteUser" ? (
-        <div>Удалить выбранного пользователя?</div>
+        <div className="form__item_type_delete">
+          Удалить выбранного пользователя?
+        </div>
       ) : (
         <ul className="form__items ">
           <li className="form__item">
