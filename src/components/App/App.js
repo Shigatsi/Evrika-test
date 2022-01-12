@@ -52,7 +52,6 @@ export default function App() {
 
   const handleEditUserSubmit = (userInfo) => {
     const newUsers = users.map((u) => (u === editUser ? userInfo : u));
-    console.log("NEWUSERS FROM APP", newUsers);
     setUsers(newUsers);
     closeModal();
   };
