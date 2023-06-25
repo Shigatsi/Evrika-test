@@ -4,17 +4,22 @@ import "./App.css";
 
 import { initialUsers } from "../../utils/mockup";
 
+import { search } from "../../utils/api";
+
 import Header from "../Header/Header";
 import Nav from "../Nav/Nav";
 import Table from "../Table/Table";
 import Modal from "../Modal/Modal";
+import Spinner from "../Spinner/Spinner";
 
 export default function App() {
+  const [isLoading, setIsLoading] = React.useState(false);
   const [users, setUsers] = React.useState(initialUsers);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [modalType, setModalType] = React.useState("");
 
   const [editUser, setEditUser] = React.useState({});
+  const [searchData, setSearchData] = React.useState({});
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -57,9 +62,30 @@ export default function App() {
     closeModal();
   };
 
+  const handleSearchClick = () => {
+    setIsModalOpen(true);
+    setModalType("search");
+  };
+
+  const handleSearchSubmit = (searchData) => {
+    const { categoryId, regionId } = searchData;
+    setIsLoading(true);
+    search(categoryId, regionId)
+      .then((res) => {
+        isLoading(false);
+        console.log("res", res);
+      })
+      .catch((err) => {
+        isLoading(false);
+        console.error(err); //выведем ошибку;
+      })
+      .finally(() => isLoading(false));
+  };
+
   return (
     <div className="page">
-      <Header />
+      {isLoading && <Spinner />}
+      <Header onSearch={handleSearchClick} />
       <Nav />
       <Table
         onAddUser={handleAddUserClick}
@@ -71,6 +97,7 @@ export default function App() {
         isOpen={isModalOpen}
         onClose={closeModal}
         type={modalType}
+        onSearchSubmit={handleSearchSubmit}
         onAddUser={handleAddUserSubmit}
         onDeleteUser={handleDeleteUserSubmit}
         onEditUser={handleEditUserSubmit}

@@ -2,4 +2,12 @@
   background-color: #353d4b;
   height: 56px;
   grid-column: 1 / span2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1em;
+}
+
+.header__search-btn {
+  justify-self:end;
 }

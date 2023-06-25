@@ -13,6 +13,8 @@ function ModalHeader({ onClose, type }) {
       setSubtitle("Редактирование пользователя");
     } else if (type === "deleteUser") {
       setSubtitle("Удаление пользователя");
+    } else if (type === "search") {
+      setSubtitle("Search");
     }
   }, [type]);
 

@@ -1,14 +1,46 @@
 import React from "react";
 
 import "./ModalBody.css";
+import { categories, regions } from "../../utils/mockup";
 
 function ModalBody({ type, data, handleChange }) {
   return (
     <>
-      {type === "deleteUser" ? (
-        <div className="form__item_type_delete">
-          Удалить выбранного пользователя?
-        </div>
+      {type === "search" ? (
+        <ul className="form__items">
+          <li className="form__item">
+            <label className="form__label">Search</label>
+            <input
+              type="text"
+              id="form_search"
+              name="surname"
+              placeholder="Search with us!"
+              minLength="2"
+              required
+              className="form__input"
+              value={data.searchInput || ""}
+              onChange={handleChange}
+            />
+          </li>
+          <li className="form__item">
+            <label className="form__label">
+              Categories:
+            </label>
+            <select id="categories" className="form__input">
+              {categories &&
+                categories.map((el) => <option key={el.id}>{el.name}</option>)}
+            </select>
+          </li>
+          <li className="form__item">
+            <label className="form__label">
+              Categories:
+            </label>
+            <select id="categories" className="form__input">
+              {regions &&
+                regions.map((el) => <option key={el.id}>{el.name}</option>)}
+            </select>
+          </li>
+        </ul>
       ) : (
         <ul className="form__items ">
           <li className="form__item">

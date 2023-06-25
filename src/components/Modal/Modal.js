@@ -71,6 +71,7 @@ function Modal({
       patronymic: data.patronymic,
       email: data.email,
       login: data.login,
+      
     });
   }
 

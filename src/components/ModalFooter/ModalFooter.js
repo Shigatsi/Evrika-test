@@ -16,8 +16,8 @@ function ModalFooter({
       setSubmitBtnCaption("Создать");
     } else if (type === "editUser") {
       setSubmitBtnCaption("Сохранить");
-    } else if (type === "deleteUser") {
-      setSubmitBtnCaption("Удалить");
+    } else if (type === "search") {
+      setSubmitBtnCaption("Search");
     }
   }, [type]);
 
@@ -30,18 +30,14 @@ function ModalFooter({
   };
   return (
     <div className="modal-footer">
-      {type === "deleteUser" ? (
+      {type === "search" ? (
         <>
-          <button className="modal-footer__btn" type="button" onClick={onClose}>
-            Отменить
-          </button>
           <button
             type="submit"
             className="modal-footer__btn modal-footer__btn_type_submit"
-            onClick={deleteUserSubmit}
+            // onClick={deleteUserSubmit}
           >
             {submitBtnCaption}
-            {/* {`${type === "deleteUser" && "Remove"}`} */}
           </button>
         </>
       ) : (
