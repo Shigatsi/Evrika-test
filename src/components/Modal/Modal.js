@@ -9,9 +9,10 @@ function Modal({
   onClose,
   type,
   onAddUser,
-  onDeleteUser,
+  // onDeleteUser,
   onEditUser,
   editUser,
+  onSearchSubmit
 }) {
   const [data, setUserData] = React.useState({
     surname: "",
@@ -20,6 +21,14 @@ function Modal({
     email: "",
     login: "",
   });
+
+  const [searchData, setSearchData] = React.useState({
+    searchInput: '',
+    category: '',
+    region: ''
+
+  })
+
 
   React.useEffect(() => {
     setUserData(data);
@@ -35,6 +44,13 @@ function Modal({
     const value = target.value;
     setUserData({ ...data, [name]: value });
   };
+  const handleSearch = (evt) => {
+    const target = evt.target;
+    const name = target.name;
+    const value = target.value;
+    setSearchData({ ...searchData, [name]: value });
+  };
+
 
   function handleAddUserSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы
@@ -55,10 +71,10 @@ function Modal({
     });
   }
 
-  function handleDeleteUserSubmit(e) {
+  function handleSearchSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
-    onDeleteUser(editUser);
+    onSearchSubmit(searchData);
   }
 
   function handleEditUserSubmit(e) {
@@ -80,13 +96,14 @@ function Modal({
       <form className="form">
         <ModalHeader type={type} onClose={onClose} />
 
-        <ModalBody type={type} data={data} handleChange={handleChange} />
+        <ModalBody type={type} searchData={searchData} data={data} handleSearch = {handleSearch} handleChange={handleChange} />
         <ModalFooter
           userData={data}
           type={type}
           addUserSubmit={handleAddUserSubmit}
-          deleteUserSubmit={handleDeleteUserSubmit}
+          // deleteUserSubmit={handleDeleteUserSubmit}
           editUserSubmit={handleEditUserSubmit}
+          searchSubmit={handleSearchSubmit}
           onClose={onClose}
         />
       </form>

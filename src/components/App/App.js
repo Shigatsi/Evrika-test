@@ -20,6 +20,7 @@ export default function App() {
 
   const [editUser, setEditUser] = React.useState({});
   const [searchData, setSearchData] = React.useState({});
+  const [setUpdatePage, setSetUpdatePage] = React.useState(false);
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -73,13 +74,16 @@ export default function App() {
     search(categoryId, regionId)
       .then((res) => {
         isLoading(false);
-        console.log("res", res);
+        setUpdatePage(true);
       })
       .catch((err) => {
         isLoading(false);
         console.error(err); //выведем ошибку;
       })
-      .finally(() => isLoading(false));
+      .finally(() => {
+        isLoading(false);
+        setUpdatePage(false);
+      });
   };
 
   return (

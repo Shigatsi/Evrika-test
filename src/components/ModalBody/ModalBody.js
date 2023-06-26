@@ -3,7 +3,8 @@ import React from "react";
 import "./ModalBody.css";
 import { categories, regions } from "../../utils/mockup";
 
-function ModalBody({ type, data, handleChange }) {
+function ModalBody({ type, data, searchData, handleChange, handleSearch }) {
+  console.log("searchData", searchData);
   return (
     <>
       {type === "search" ? (
@@ -13,29 +14,37 @@ function ModalBody({ type, data, handleChange }) {
             <input
               type="text"
               id="form_search"
-              name="surname"
+              name="searchInput"
               placeholder="Search with us!"
               minLength="2"
               required
               className="form__input"
-              value={data.searchInput || ""}
-              onChange={handleChange}
+              value={searchData.searchInput || ""}
+              onChange={handleSearch}
             />
           </li>
           <li className="form__item">
-            <label className="form__label">
-              Categories:
-            </label>
-            <select id="categories" className="form__input">
+            <label className="form__label">Categories:</label>
+            <select
+              id="categories"
+              className="form__input"
+              onChange={handleSearch}
+              name="category"
+              value={searchData.category ? searchData.category : ""}
+            >
               {categories &&
                 categories.map((el) => <option key={el.id}>{el.name}</option>)}
             </select>
           </li>
           <li className="form__item">
-            <label className="form__label">
-              Categories:
-            </label>
-            <select id="categories" className="form__input">
+            <label className="form__label">Regions:</label>
+            <select
+              name="region"
+              id="categories"
+              className="form__input"
+              onChange={handleSearch}
+              value={searchData.region ? searchData.region : ""}
+            >
               {regions &&
                 regions.map((el) => <option key={el.id}>{el.name}</option>)}
             </select>
